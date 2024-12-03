@@ -18,21 +18,22 @@ services:
       MONGODB_REPLICA_SET_NAME: rs0
       MONGODB_PORT_NUMBER: 27017
       MONGODB_DATABASE: rocketchat
-      ALLOW_EMPTY_PASSWORD: yes
+      ALLOW_EMPTY_PASSWORD: ${ALLOW_EMPTY_PASSWORD}
 
   rocketchat:
     image: registry.rocket.chat/rocketchat/rocket.chat:latest
     container_name: rocketchat
     restart: always
     environment:
-      MONGO_URL: mongodb://rocketchat-mongodb:27017/rocketchat?replicaSet=rs0
-      MONGO_OPLOG_URL: mongodb://rocketchat-mongodb:27017/local?replicaSet=rs0
-      ROOT_URL: http://localhost:3000
+      MONGO_URL: mongodb://mongodb:27017/rocketchat?replicaSet=rs0
+      MONGO_OPLOG_URL: mongodb://mongodb:27017/local?replicaSet=rs0
+      ROOT_URL: http://0.0.0.0:3000
       PORT: 3000
     depends_on:
       - mongodb
     ports:
       - "3000:3000"
+
 
 
 ```
